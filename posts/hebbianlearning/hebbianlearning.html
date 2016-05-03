@@ -29,7 +29,7 @@
     <script src="../../js/bootstrap.min.js"></script>
 	
 	<!-- Load maincolumn -->
-	<script> $(function(){ $("#maincolumn").load("../../maincolumn.html"); }); </script> 
+	<script> $(function(){ $("#maincolumn").load("../../postsmaincolumn.html"); }); </script> 
 
 </head>
 
@@ -55,24 +55,52 @@
 	there are some big problems yet to solve.
 	</p>
 	<p>
-	One of the biggest problems of ANN is <b>generalization</b>, infact ANN are pretty bad at generalizing
+	One of the biggest problems of ANNs is <b>generalization</b>, infact ANN are pretty bad at generalizing
 	what they learn, you need a lot of data to make them work well.
 	Also they are very very <b>slow</b> at learning new things compared to the Human brain, for
-	example Humans are able to learn to recognizing an object by watching it one or few times
-	while ANN require training on hundreds or thousands of images.
+	example Humans are able to learn to recognize an object by watching it one or few times
+	while an ANN require training on hundreds or thousands of images.
 	I will talk a bit more about this problem later in this post and I will explain why I believe
-	we are able to learns new things so quickly and why current ANN are not able to do that.
+	we are able to learns new things so quickly and why current ANNs are not able to do that.
 	Another problem in current artificial neural networks is that they can't be extended in an efficient
 	way. For example let's say I want to train an ANN to recognize handwritten digits but I
-	decide to train it only with images of numbers and without images of letters. I will end up
+	decide to train it only with images of numbers. I will end up
 	with a network that is able to recognize numbers but not letters obviously.
 	Let's say now that I changed my mind and I want to train the same network to recognize
-	letters and numbers, so I train the network with images of letters.
-	This time I end up with an ANN that is able to recognize letters but not numbers infact the
-	problem is that the network overwrite what he had learned before.
+	letters and numbers, so I train the network with images of letters and
+	this time I end up with an ANN that is able to recognize letters but not numbers, infact the
+	problem is that <b>ANNs tends to overwrite what they learned before</b>.
 	The common approach is to train the network with all the data at the same time but that it's
-	not the way biological nervous systems works, we are able to learn new things without the need
+	not the way the biological nervous systems works, we are able to learn new things without the need
 	of forgetting other things.
+	There are a lot of other differences but the last one I will cover is the "learning rule".
+	<br>
+	Let me explain: in order for learning to occur in both biological and artificial neural networks
+	each neuron must follow some precise rules for deciding how to modify the connections with other neurons.
+	In ANN the <b>backpropagation algorithm</b> is commonly used.
+	This algorithm is very powerfull, it's the holy grail of artificial intelligence,
+	infact it's used to train ANNs for speech recognition, image recognition, object detection,
+	email filters, self driving cars and for solving many other problems.
+	While this algorithm is very useful, I believe that the problems of current ANNs that I listed
+	before (bad generalization, slow learning, bad at continuous learning) are caused by 
+	how this algorithm works. To demostrate this I must show you another learning algorithm that
+	is biologically plausible, known as Hebbian learning.
+	</p>
+	
+	<h2>The Hebbian learning rule</h2>
+	<p>
+	The Hebbian learning rule was Introduced by Donald Hebb in his 1949 book "The Organization of Behavior".
+	In his book he state as follows:
+	</p>
+	<blockquote>
+	Let us assume that the persistence or repetition of a reverberatory activity 
+	tends to induce lasting cellular changes that add to its stability. When an axon 
+	of cell A is near enough to excite a cell B and repeatedly or persistently takes part in 
+	firing it, some growth process or metabolic change takes place in one or both cells 
+	such that A's efficiency, as one of the cells firing B, is increased.
+	</blockquote>
+	<p>
+	What does this mean?<br>	
 	</p>
 	</div>
 
