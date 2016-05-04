@@ -28,6 +28,14 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.min.js"></script>
 	
+	<!-- MathJax for inline math -->
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+	</script>
+
 	<!-- Load maincolumn -->
 	<script> $(function(){ $("#maincolumn").load("../../postsmaincolumn.html"); }); </script> 
 
@@ -101,6 +109,8 @@
 	</blockquote>
 	<p>
 	What does this mean?<br>	
+	Basically the hypotesis is that after a neuron fires the connections between that neuron
+	and the neurons that caused it to fire become stronger.
 	</p>
 	</div>
 
