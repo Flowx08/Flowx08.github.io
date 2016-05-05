@@ -98,3 +98,15 @@ color:#333;
 color:#999;
 text-decoration:none;
 }
+
+.formula {
+	font-size: 1.5em;
+}
+
+code {
+	padding:0px;
+}
+
+pre {
+	padding:0px;
+}

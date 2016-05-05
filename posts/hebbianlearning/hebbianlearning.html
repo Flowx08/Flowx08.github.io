@@ -31,6 +31,11 @@
 	<!-- Load maincolumn -->
 	<script> $(function(){ $("#maincolumn").load("/maincolumn.html");}); </script> 
 	
+	<!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" rel="stylesheet" />
+    <script>hljs.initHighlightingOnLoad();</script>
+
 	<!-- MathJax for inline math -->
 	<script type="text/x-mathjax-config">
 	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
@@ -85,12 +90,12 @@
 	Let me explain: in order for learning to occur in both biological and artificial neural networks
 	each neuron must follow some precise rules for deciding how to modify the connections with other neurons.
 	In ANN the <b>backpropagation algorithm</b> is commonly used.
-	This algorithm is very powerfull, it's the holy grail of artificial intelligence,
+	This algorithm is very powerful, it's the holy grail of artificial intelligence,
 	infact it's used to train ANNs for speech recognition, image recognition, object detection,
 	email filters, self driving cars and for solving many other problems.
 	While this algorithm is very useful, I believe that the problems of current ANNs that I listed
 	before (bad generalization, slow learning, bad at continuous learning) are caused by 
-	how this algorithm works. To demostrate this I must show you another learning algorithm that
+	how this algorithm works. To demonstrate this I must show you another learning algorithm that
 	is biologically plausible, known as Hebbian learning.
 	</p>
 	
@@ -108,8 +113,26 @@
 	</blockquote>
 	<p>
 	What does this mean?<br>	
-	Basically the hypotesis is that after a neuron fires the connections between that neuron
+	Basically the hypothesis is that after a neuron fires the connections between that neuron
 	and the neurons that caused it to fire become stronger.
+	One of the mathematical expressions of the Hebbian learning rule is the following:
+	</p>
+	<div class="formula">
+	$$w_{i} = w_{i} + (x_{i} - w_{i}) * learningrate$$
+	</div>
+	<p>
+	Where $x_{i}$ are the inputs to the neuron, $w_{j}$ are the weights of the connections and
+	the learningrate is a real value between 0 and 1 that determinate the learning speed.
+	This means that the weights of the neuron shift in the direction of the input, basically
+	the neuron learns to fire when there is a particular input.
+	
+	<pre>
+	<code class="python">
+	for i in xrange(100):
+		print("Hello World {}".format(i))
+	</code>
+	</pre>
+	
 	</p>
 	</div>
 
