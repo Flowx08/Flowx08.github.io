@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Carlo Meroni website">
+
+    <title>Carlo Meroni website</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    
+	<!-- overflow theme -->
+	<link href="/css/overflow.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    
+	<!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+	
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+	
+	<!-- Load maincolumn -->
+	<script> $(function(){ $("#maincolumn").load("/maincolumn.html");}); </script> 
+	
+	<!-- highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/dark.min.css" rel="stylesheet" />
+    <script>hljs.initHighlightingOnLoad();</script>
+
+	<!-- MathJax for inline math -->
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript" async
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+	</script>
+</head>
+
+<body>
+	
+	<!-- maincolumn -->
+	<div id="maincolumn"></div>
+
+	<!-- posts -->
+	<div class="pagecolumn">
+	<h1>Fullyconnected neural network</h1>
+	<p>Implementing a fullyconnected neural network from scratch in python</p>
+	<small>Published on 5 May 2016</small>
+	<hr>
+	<h2>The fullyconnected layer class</h2>
+	<p>
+	In this tutorial I show, step by step, how to implement a simple neural network in python.
+	The best way to write a neural network is to organize it in layers.
+	Each layer have a fixed number of inputs X and a fixed number of outputs Y. 
+	The number of outputs is equal to the number of neurons of the layer.
+	<br>
+	Each neuron require:
+	</p>
+	<ul>
+	<li> an array of the same size of the input for storing the <b>weights</b>
+	<li> a <b>bias</b> value</li>
+	<li> a variable for storing the <b>output</b></li>
+	<li> a variable for storing the <b>delta</b> value, used for updating the weights</li>
+	</ul>
+	<p>
+	So first thing, we need to import the numpy and math module:
+	</p>
+<pre><code class="python">import numpy
+import math
+</code></pre>
+	<p>
+	We can then write the constructor of our fullyconnected neural layer like this:
+	</p>
+<pre><code class="python">class FullyConnectedNL:
+	def __init__(self, inputs_size, nodes_size, init_mean=0.0, init_dev=0.1):
+		if nodes_size <= 0 or inputs_size <= 0: 
+			print("Error, invalid FullyConnected layer init parameters")
+		self.nodes = nodes_size
+		self.weights = numpy.random.normal(loc=init_mean,
+					scale=init_dev, size=(nodes_size, inputs_size))
+		self.bias = numpy.random.normal(loc=init_mean,
+					scale=init_dev, size=(nodes_size))
+		self.outputs = numpy.zeros(nodes_size)
+		self.deltas = numpy.zeros(nodes_size)
+</code></pre>
+<p>
+	The constructor takes in input the number of inputs of the layer and the number of neurons,
+	init_mean and init_dev are the mean and deviation used to randomly initialize the weights and the biases.
+	To do this we use the numpy function <i>numpy.random.normal()</i> and we specify the size of the
+	weights matrix as <i>size=(nodes_size, inputs_size)</i>, where the first term indicates the
+	number of neurons in the layer while the second term is the number of weights for each neuron.
+	Then we create the outputs and deltas vectors using <i>numpy.zeros()</i> of size equal to the
+	number of neurons.
+	<br>
+	Now we need to implement a function that calculates the output of every neuron given an input
+	vector:
+</p>
+<pre><code class="python">def predict(self, inputs):
+	for i in range(self.nodes):
+		out = numpy.dot(self.weights[i], inputs)
+		out += self.bias[i]
+		self.outputs[i] = math.tanh(out)
+</code></pre>
+	<p>
+	This piece of code calculates the output of each neuron by calculating the dot product
+	between the weights vector and the inputs vector and by adding the bias value.
+	The last line  of code apply the tanh activation function and store the output in the
+	outputs vector. There are also other <a href="https://en.wikipedia.org/wiki/Activation_function">
+	activation function</a> you can use (ReLU, Linear, Sigmoid ...) but in this tutorial
+	I will use only the tanh activation function to keep everything simple.
+	</p>
+	<p>
+	Now we have a working neural layer but because the weights have random values also the outputs
+	will be random. We need to implement a learning algorithm to train the weights of the network.
+	One good algorithm is the <a href="https://en.wikipedia.org/wiki/Backpropagation">backpropagation algorithm</a>
+	with stochastic gradient descent. Basically we calculate the delta of each output by subtracting
+	the desired output and the actual output of the network and then we propagate backward 
+	all the deltas trough every layer of our network. 
+	We finally use the deltas to update the weights of the neural network.
+	<br>
+	I usually split this algorithm in 3 functions:
+	</p>
+	<ul>
+	<li><b>calculate_output_deltas(desiredoutput)</b><br>For calculating the deltas of the output layer.</li>
+	<li><b>backpropagate_deltas(back_layer)</b><br>For propagating the deltas to another layer.</li>
+	<li><b>update_weights(inputs, leaning_rate)</b><br>For updating the weights using the stored deltas.</li>
+	</ul>
+	<p>
+	Let's begin with calculate_output_deltas:
+	</p>
+<pre><code class="python">def calculate_output_deltas(self, desiredoutput):	
+	for i in range(self.nodes):
+		self.deltas[i] = (1.0 - math.tanh(self.outputs[i])**2) * (desiredoutput[i] - self.outputs[i]))
+</pre></code>
+	<p>
+	This function calculates the delta of each neuron by calculating the prediction error 
+	<i>(desiredoutput[i] - self.outputs[i])</i> and multiplying it by the tanh derivative <i>(1.0 - math.tanh(x)**2)</i>
+	of the output.
+	</p>
+<pre><code class="python">def backpropagate_deltas(self, back_layer):
+	for i in range(back_layer.nodes):
+		error = math.fsum([(self.deltas[l] * self.weights[l][i]) for l in range(self.nodes)])
+		back_layer.deltas[i] = (1.0 - math.tanh(back_layer.outputs[i])**2) * error
+</pre></code>
+	<p>
+	This function calculates the errors by multiplying each delta for each weight and then
+	use the error to calculate the deltas of the previous layer by multiplying each error
+	for the tanh derivative of the output.
+	</p>
+	<p>
+	Ok, now that we can calculate and backpropagate the deltas we can also update the weights
+	of the neural network for minimizing the mean square error:
+	</p>
+<pre><code class="python">def update_weights(self, inputs, learning_rate):
+	for i in range(self.nodes):
+		for k in range(len(inputs)):
+			self.weights[i][k] += inputs[k] * learning_rate * self.deltas[i]
+		self.bias[i] += learning_rate * self.deltas[i];
+</pre></code>
+	<p>
+	Each weight is updated by adding to it the input value multiplied by the delta value and
+	the learning rate parameter.
+	</p>
+	<p>
+	We have now a working and trainable  fullyconnected layer that can be easily used as a neural network.
+	But before testing the network let's add two more functions to save and load the weights
+	of the layer so we can store our neural network.
+	</p>
+<pre><code class="python">def save(self, filepath):
+	f = file(filepath, "wb")
+	numpy.save(f, self.weights)
+	numpy.save(f, self.bias)
+	f.write(activation_tostring(self.activation) + "\n")
+	f.write(derivative_tostring(self.derivative) + "\n")
+	f.close()
+	
+def load(self, filepath):
+	f = file(filepath, "rb")
+	self.weights = numpy.load(f)
+	self.bias = numpy.load(f)
+	self.activation = string_toactivation(f.readline()[:-1])
+	self.derivative = string_toderivative(f.readline()[:-1])
+	f.close()
+</pre></code>
+	<p>
+	I uploaded all the code on github <a href="#">here</a> if you need it.
+	</p>
+	<h2>Implementing and testing a neural network</h2>	
+	<p>
+	Now that we have our fullyconnected layer class we can create a 2 layer neural network and
+	train it to learn the XOR operation.
+	</p>
+	<pre><code class="python">layer1 = FullyconnectedNL(2, 2)
+layer2 = FullyconnectedNL(2, 1)
+learningrate = 0.1
+inputs = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
+desoutputs = [1, 0, 0, 1]
+
+#Train
+for i in xrange(3000):
+	for k in xrange(4):
+		layer1.predict(inputs[k])
+		layer2.predict(layer1.output)
+		layer2.calculate_output_deltas(desoutputs[k])
+		layer2.backpropagate_deltas(layer1)
+		layer1.update_weights(inputs[k], learningrate)
+		layer2.update_weights(layer1.outputs, learningrate)
+	
+#Test
+for k in xrange(4):
+	layer1.predict(inputs[k])
+	layer2.predict(layer1.output)
+	print("{} -> {}".format(inputs[k], layer2.outputs))
+
+#Save
+layer1.save("layer1.txt")
+layer2.save("layer2.txt")
+	</pre></code>
+</div>
+
+</body>
+
+</html>

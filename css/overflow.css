@@ -81,6 +81,10 @@ font-size:2.0em;
 font-size:1.2em;
 }
 
+.pagecolumn ul {
+font-size:1.2em;
+}
+
 .pagecolumn small{
 color:#666;
 }
@@ -104,9 +108,17 @@ text-decoration:none;
 }
 
 code {
-	padding:0px;
+	padding:16px;
+	margin:0px;
 }
 
-pre {
-	padding:0px;
+pre{
+	padding:8px;
+	margin-top:16px;
+	margin-bottom:16px;
+	font-size: 0.75em;
+    background-color:#444;
+	-moz-tab-size: 4;
+    -o-tab-size:   4;
+    tab-size:      4;
 }
