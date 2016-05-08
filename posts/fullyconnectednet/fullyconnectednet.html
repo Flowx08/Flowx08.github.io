@@ -101,7 +101,7 @@ import math
 	Then we create the outputs and deltas vectors using <i>numpy.zeros()</i> of size equal to the
 	number of neurons.
 	<br>
-	Now we need to implement a function that calculates the output of every neuron given an input
+	Now we need to implement the function that calculates the output of every neuron given an input
 	vector:
 </p>
 <pre><code class="python">def predict(self, inputs):
@@ -115,7 +115,7 @@ import math
 	between the weights vector and the inputs vector and by adding the bias value.
 	The last line  of code apply the tanh activation function and store the output in the
 	outputs vector. There are also other <a href="https://en.wikipedia.org/wiki/Activation_function">
-	activation function</a> you can use (ReLU, Linear, Sigmoid ...) but in this tutorial
+	activation functions</a> you can use (ReLU, Linear, Sigmoid ...) but in this tutorial
 	I will use only the tanh activation function to keep everything simple.
 	</p>
 	<p>
@@ -134,18 +134,22 @@ import math
 	<li><b>backpropagate_deltas(back_layer)</b><br>For propagating the deltas to another layer.</li>
 	<li><b>update_weights(inputs, leaning_rate)</b><br>For updating the weights using the stored deltas.</li>
 	</ul>
-	<p>
-	Let's begin with calculate_output_deltas:
-	</p>
+	<h4 style="padding-top:16px;">Calcualte the output deltas</h4>
 <pre><code class="python">def calculate_output_deltas(self, desiredoutput):	
 	for i in range(self.nodes):
-		self.deltas[i] = (1.0 - math.tanh(self.outputs[i])**2) * (desiredoutput[i] - self.outputs[i]))
+		self.deltas[i] = (desiredoutput[i] - self.outputs[i]) * (1.0 - math.tanh(self.outputs[i])**2)
 </pre></code>
 	<p>
-	This function calculates the delta of each neuron by calculating the prediction error 
-	<i>(desiredoutput[i] - self.outputs[i])</i> and multiplying it by the tanh derivative <i>(1.0 - math.tanh(x)**2)</i>
-	of the output.
+	This function calculates the delta of each neuron using the <a href="https://en.wikipedia.org/wiki/Delta_rule"> delta rule</a>.
+	$$\Delta_{i}=(t_i-y_i) g'(y_i)$$
+	where:
 	</p>
+	<ul>
+	<li>$g(x)$ is the neuron's activation function, in this case tanh.</li>
+	<li>$t_j$ is the target output or desired output.</li>
+	<li>$y_j$ is the actual output.</li>
+	</ul>
+	<h4 style="padding-top:16px;">Backpropagate deltas to other layers</h4>
 <pre><code class="python">def backpropagate_deltas(self, back_layer):
 	for i in range(back_layer.nodes):
 		error = math.fsum([(self.deltas[l] * self.weights[l][i]) for l in range(self.nodes)])
@@ -155,11 +159,21 @@ import math
 	This function calculates the errors by multiplying each delta for each weight and then
 	use the error to calculate the deltas of the previous layer by multiplying each error
 	for the tanh derivative of the output.
+	$$B\Delta_{i}=(\sum_{l=0}^{n}\Delta_l w_{li}) g'(y_i)$$
+	where:
 	</p>
+	<ul>
+	<li>$g(x)$ is the neuron's activation function, in this case tanh.</li>
+	<li>$\Delta_l$ is the delta of the $l$th neuron of the current layer.</li>
+	<li>$B\Delta_i$ is the delta of the $i$th neuron of the other layer.</li>
+	<li>$w_{li}$ is the $i$th weight of the $l$th neuron of the current layer.</li>
+	<li>$y_j$ is the output of the $i$th neuron of the other layer</li>
+	</ul>
 	<p>
 	Ok, now that we can calculate and backpropagate the deltas we can also update the weights
 	of the neural network for minimizing the mean square error:
 	</p>
+	<h4 style="padding-top:16px;">Update the layer weights</h4>
 <pre><code class="python">def update_weights(self, inputs, learning_rate):
 	for i in range(self.nodes):
 		for k in range(len(inputs)):
@@ -169,11 +183,22 @@ import math
 	<p>
 	Each weight is updated by adding to it the input value multiplied by the delta value and
 	the learning rate parameter.
+	$$w_{ik} = w_{ik} + (i_k * \Delta_i * \alpha)$$
+	$$b_{i} = b_{i} + (\Delta_i * \alpha)$$
+	where:
 	</p>
+	<ul>
+	<li>$w_{ik}$ is the $k$th weight of the $i$th neuron.</li>
+	<li>$b_{i}$ is the bias of the $i$th neuron.</li>
+	<li>$\Delta_i$ is the delta of the $i$th neuron.</li>
+	<li>$i_k$ is the $k$th input of the layer.</li>
+	<li>$\alpha$ is a parameter known as the learning rate</li>
+	</ul>
+	<h4 style="padding-top:16px;">Save and load the layer</h4>
 	<p>
 	We have now a working and trainable  fullyconnected layer that can be easily used as a neural network.
 	But before testing the network let's add two more functions to save and load the weights
-	of the layer so we can store our neural network.
+	of the layer so we can store our neural networks.
 	</p>
 <pre><code class="python">def save(self, filepath):
 	f = file(filepath, "wb")
@@ -191,11 +216,9 @@ def load(self, filepath):
 	self.derivative = string_toderivative(f.readline()[:-1])
 	f.close()
 </pre></code>
-	<p>
-	I uploaded all the code on github <a href="#">here</a> if you need it.
-	</p>
 	<h2>Implementing and testing a neural network</h2>	
 	<p>
+	I uploaded all the code on github <a href="#">here</a> if you need it.<br>
 	Now that we have our fullyconnected layer class we can create a 2 layer neural network and
 	train it to learn the XOR operation.
 	</p>
