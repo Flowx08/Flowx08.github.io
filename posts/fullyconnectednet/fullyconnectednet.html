@@ -53,12 +53,12 @@
 	<!-- posts -->
 	<div class="pagecolumn">
 	<h1>Fullyconnected neural network</h1>
-	<p>Implementing a fullyconnected neural network from scratch in python</p>
+	<p>How to implement a fullyconnected neural network from scratch in python</p>
 	<small>Published on 5 May 2016</small>
 	<hr>
 	<h2>The fullyconnected layer class</h2>
 	<p>
-	In this tutorial I show, step by step, how to implement a simple neural network in python.
+	In this tutorial I show you how to implement a simple neural network in python, step by step.
 	The best way to write a neural network is to organize it in layers.
 	Each layer have a fixed number of inputs X and a fixed number of outputs Y. 
 	The number of outputs is equal to the number of neurons of the layer.
@@ -72,7 +72,7 @@
 	<li> a variable for storing the <b>delta</b> value, used for updating the weights</li>
 	</ul>
 	<p>
-	So first thing, we need to import the numpy and math module:
+	First thing, we need to import the numpy and math module:
 	</p>
 <pre><code class="python">import numpy
 import math
@@ -93,8 +93,8 @@ import math
 		self.deltas = numpy.zeros(nodes_size)
 </code></pre>
 <p>
-	The constructor takes in input the number of inputs of the layer and the number of neurons,
-	init_mean and init_dev are the mean and deviation used to randomly initialize the weights and the biases.
+	The constructor takes in input the number of inputs of the layer and the number of neurons.
+	The parameters init_mean and init_dev are the mean and deviation used to randomly initialize the weights and the biases.
 	To do this we use the numpy function <i>numpy.random.normal()</i> and we specify the size of the
 	weights matrix as <i>size=(nodes_size, inputs_size)</i>, where the first term indicates the
 	number of neurons in the layer while the second term is the number of weights for each neuron.
@@ -170,8 +170,8 @@ import math
 	<li>$y_j$ is the output of the $i$th neuron of the other layer</li>
 	</ul>
 	<p>
-	Ok, now that we can calculate and backpropagate the deltas we can also update the weights
-	of the neural network for minimizing the mean square error:
+	Ok, now that we can calculate and backpropagate the deltas we can use these deltas for
+	updating the weights of the neural network for minimizing the mean square error:
 	</p>
 	<h4 style="padding-top:16px;">Update the layer weights</h4>
 <pre><code class="python">def update_weights(self, inputs, learning_rate):
@@ -183,8 +183,8 @@ import math
 	<p>
 	Each weight is updated by adding to it the input value multiplied by the delta value and
 	the learning rate parameter.
-	$$w_{ik} = w_{ik} + (i_k * \Delta_i * \alpha)$$
-	$$b_{i} = b_{i} + (\Delta_i * \alpha)$$
+	$$w_{ik} = w_{ik} + i_k * \Delta_i * \alpha$$
+	$$b_{i} = b_{i} + \Delta_i * \alpha$$
 	where:
 	</p>
 	<ul>
@@ -204,35 +204,35 @@ import math
 	f = file(filepath, "wb")
 	numpy.save(f, self.weights)
 	numpy.save(f, self.bias)
-	f.write(activation_tostring(self.activation) + "\n")
-	f.write(derivative_tostring(self.derivative) + "\n")
 	f.close()
 	
 def load(self, filepath):
 	f = file(filepath, "rb")
 	self.weights = numpy.load(f)
 	self.bias = numpy.load(f)
-	self.activation = string_toactivation(f.readline()[:-1])
-	self.derivative = string_toderivative(f.readline()[:-1])
 	f.close()
 </pre></code>
 	<h2>Implementing and testing a neural network</h2>	
 	<p>
-	I uploaded all the code on github <a href="#">here</a> if you need it.<br>
+	I uploaded all the code on github <a href="https://github.com/Flowx08/CleanNeuralNet">here</a> if you need it.<br>
 	Now that we have our fullyconnected layer class we can create a 2 layer neural network and
 	train it to learn the XOR operation.
 	</p>
-	<pre><code class="python">layer1 = FullyconnectedNL(2, 2)
-layer2 = FullyconnectedNL(2, 1)
-learningrate = 0.1
+	<pre><code class="python">#Create network
+layer1 = FullyConnectedNL(2, 2, 0.0, 1.0)
+layer2 = FullyConnectedNL(2, 1, 0.0, 1.0)
+learningrate = 0.05
+
+#Inputs
 inputs = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
-desoutputs = [1, 0, 0, 1]
+#Desired outputs
+desoutputs = [[0], [1], [1], [0]]
 
 #Train
 for i in xrange(3000):
 	for k in xrange(4):
 		layer1.predict(inputs[k])
-		layer2.predict(layer1.output)
+		layer2.predict(layer1.outputs)
 		layer2.calculate_output_deltas(desoutputs[k])
 		layer2.backpropagate_deltas(layer1)
 		layer1.update_weights(inputs[k], learningrate)
@@ -241,7 +241,7 @@ for i in xrange(3000):
 #Test
 for k in xrange(4):
 	layer1.predict(inputs[k])
-	layer2.predict(layer1.output)
+	layer2.predict(layer1.outputs)
 	print("{} -> {}".format(inputs[k], layer2.outputs))
 
 #Save
