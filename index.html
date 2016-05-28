@@ -14,6 +14,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     
+	<!-- Font-awesome for icons -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
 	<!-- overflow theme -->
 	<link href="/css/overflow.css" rel="stylesheet">
 
@@ -28,36 +31,29 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 	
-	<!-- Load maincolumn -->
-	<script> $(function(){ $("#maincolumn").load("/maincolumn.html"); }); </script> 
-
+	<!-- Load head of the page -->
+	<script> $(function(){ $("#page-head").load("head.html"); }); </script> 
 </head>
 
 <body>
-	
-	<!-- maincolumn -->
-	<div id="maincolumn"></div>
-
-	<!-- posts -->
 	<div class="pagecolumn">
-	<h1>Posts</h1>
+	
+	<!-- page head -->
+	<div id="page-head"></div>
+
 	<hr>
-	<!-- <div class="post">
-	<i style="float:right;"><small>Published on 28 April 2016</small></i>
-	<h2><a href="posts/hebbianlearning/hebbianlearning.html">Hebbian learning</a></h2>
-	<p>A biological plausible learning alghorithm.</p>
-	</div>
-	<hr>-->
+	
+	<!-- posts -->
 	<div class="post">
-	<i style="float:right;"><small>Published on 9 May 2016</small></i>
-	<h2><a href="posts/fullyconnectednet/fullyconnectednet.html">Tutorial: Fullyconnected neural network</a></h2>
+	<h2><a href="posts/fullyconnectednet/fullyconnectednet.html">Implementing a fullyconnected neural network</a></h2>
 	<p>How to implement a fullyconnected neural network from scratch in python</p>
+	<i>9 May 2016</i>
 	</div>
 	<hr>
 	<div class="post">
-	<i style="float:right;"><small>Published on 3 May 2016</small></i>
 	<h2><a href="about.html">About me</a></h2>
 	<p>Brief post to explain who I am and why I created this website.</p>
+	<i>3 May 2016</i>
 	</div>
 	</div>
 

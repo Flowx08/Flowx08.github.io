@@ -13,6 +13,9 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Font-awesome for icons -->
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
     
 	<!-- overflow theme -->
 	<link href="/css/overflow.css" rel="stylesheet">
@@ -28,8 +31,8 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
 	
-	<!-- Load maincolumn -->
-	<script> $(function(){ $("#maincolumn").load("/maincolumn.html");}); </script> 
+	<!-- Load head of the page -->
+	<script> $(function(){ $("#page-head").load("/head.html"); }); </script> 
 	
 	<!-- highlight.js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js"></script>
@@ -46,12 +49,12 @@
 </head>
 
 <body>
+	<div class="pagecolumn">
 	
 	<!-- maincolumn -->
-	<div id="maincolumn"></div>
+	<div id="page-head"></div>
 
 	<!-- posts -->
-	<div class="pagecolumn">
 	<h1>Fullyconnected neural network</h1>
 	<p>How to implement a fullyconnected neural network from scratch in python</p>
 	<small>Published on 9 May 2016</small>
