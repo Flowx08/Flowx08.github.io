@@ -1,5 +1,6 @@
 body {
 font-family: "Helvetica Neue";
+margin-bottom: 100px;
 }
 
 .site-head {
@@ -62,6 +63,11 @@ font-size:3em;
 
 .pagecolumn h2{
 font-size:2.0em;
+}
+
+.pagecolumn img {
+margin-top: 16px;
+margin-bottom: 16px;
 }
 
 .pagecolumn p {
