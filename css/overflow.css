@@ -9,8 +9,8 @@ text-align: center;
 }
 
 .blog-logo img{
-width: 100px;
-height: 100px;
+width: 196px;
+height: 196px;
 border-radius: 50%;
 background-size: cover !important;
 background-position: center center !important;
@@ -20,11 +20,11 @@ background-position: center center !important;
 }
 
 .blog-title a {
-color: #333;
+	color: #222;
 }
 
 .blog-title a:hover {
-color: #44C;
+color: #666;
 text-decoration: none;
 }
 
@@ -42,7 +42,7 @@ font-size: 32px;
 
 .blog-links a {
 margin-right:16px;
-color: rgba(0, 0, 0, 1.0);
+color: rgba(80, 80, 80, 1.0);
 }
 
 .blog-links a:hover {
@@ -76,7 +76,7 @@ font-family:"Helvetica Neue";
 font-weight: 300;
 }
 
-.pagecolumn ul {
+.pagecolumn table {
 font-size:1.3em;
 }
 
@@ -91,12 +91,17 @@ line-height: 16px;
 }
 
 .post a {
-color:#44C;
+color:#FFF;
 }
 
 .post a:hover {
-color:#00A;
+color:#666;
 text-decoration:none;
+}
+
+.post .btn {
+	float: right;
+	margin: 4px;
 }
 
 .formula {
