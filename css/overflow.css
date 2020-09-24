@@ -108,6 +108,7 @@ body {
 .post .btn {
 	float: right;
 	margin: 4px;
+	width: 96px;
 }
 
 .formula {
