@@ -1,19 +1,19 @@
 body {
-font-family: "Helvetica Neue";
-margin-bottom: 100px;
+	font-family: "Helvetica Neue";
+	margin-bottom: 100px;
 }
 
 .site-head {
-padding: 50px 0 50px 0;
-text-align: center;
+	padding: 50px 0 50px 0;
+	text-align: center;
 }
 
 .blog-logo img{
-width: 196px;
-height: 196px;
-border-radius: 50%;
-background-size: cover !important;
-background-position: center center !important;
+	width: 196px;
+	height: 196px;
+	border-radius: 50%;
+	background-size: cover !important;
+	background-position: center center !important;
 }
 
 .blog-title {
@@ -24,79 +24,85 @@ background-position: center center !important;
 }
 
 .blog-title a:hover {
-color: #666;
-text-decoration: none;
+	color: #666;
+	text-decoration: none;
 }
 
 .blog-description {
-max-width: 700px;
-margin: 15px auto 0 auto;
-font-size: 20px;
-line-height:28px;
+	max-width: 700px;
+	margin: 15px auto 0 auto;
+	font-size: 20px;
+	line-height:28px;
 }
 
 .blog-links {
-margin-top: 15px;
-font-size: 32px;
+	margin-top: 15px;
+	font-size: 32px;
 }
 
 .blog-links a {
-margin-right:16px;
-color: rgba(80, 80, 80, 1.0);
+	margin-right:16px;
+	color: rgba(80, 80, 80, 1.0);
 }
 
 .blog-links a:hover {
-margin-right:16px;
-color: rgba(200, 200, 200, 1.0);
+	margin-right:16px;
+	color: rgba(200, 200, 200, 1.0);
 }
 
 .pagecolumn {
-position: relative;
-width: 90%;
-max-width: 800px;
-margin: 0 auto;
+	position: relative;
+	width: 90%;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 .pagecolumn h1{
-font-size:3em;
+	font-size:3em;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 32px;
 }
 
-.pagecolumn h2{
-font-size:2.0em;
+.pagecolumn h2 {
+	font-size:2.0em;
+	font-weight: bold;
+	text-align: center;
 }
 
 .pagecolumn img {
-margin: 16px;
+	margin: 16px;
 }
 
 .pagecolumn p {
-font-size:20px;
-font-height:35px;
-font-family:"Helvetica Neue";
-font-weight: 300;
+	font-size:20px;
+	font-height:35px;
+	font-family:"Helvetica Neue";
+	font-weight: 300;
 }
 
 .pagecolumn table {
-font-size:1.3em;
+	font-size:1.3em;
+	margin-bottom: 64px;
 }
 
 .pagecolumn small{
-color:#666;
+	color:#666;
 }
 
 .post {
-margin-bottom:16px;
-padding: 0 0 0px 0px;
-line-height: 16px;
+	margin-bottom:16px;
+	padding: 0 0 0px 0px;
+	line-height: 16px;
 }
 
 .post a {
-color:#FFF;
+	color:#FFF;
 }
 
 .post a:hover {
-color:#666;
-text-decoration:none;
+	color:#666;
+	text-decoration:none;
 }
 
 .post .btn {
@@ -105,7 +111,7 @@ text-decoration:none;
 }
 
 .formula {
-font-size: 1.5em;
+	font-size: 1.5em;
 }
 
 code {
@@ -118,8 +124,8 @@ pre{
 	margin-top:16px;
 	margin-bottom:16px;
 	font-size: 0.75em;
-    background-color:#444;
+	background-color:#444;
 	-moz-tab-size: 4;
-    -o-tab-size:   4;
-    tab-size:      4;
+	-o-tab-size:   4;
+	tab-size:      4;
 }
